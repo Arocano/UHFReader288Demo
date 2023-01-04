@@ -59,14 +59,14 @@ namespace UHFReader288Demo
         private int CardNum1 =0;
         private string fInventory_EPC_List; //存贮询查列表（如果读取的数据没有变化，则不进行刷新）
         private int frmcomportindex;
-        private bool SeriaATflag = false;
+       
         private byte Target = 0;
         private byte InAnt = 0;
         private byte Scantime = 0;
         private byte FastFlag = 0;
         private byte Qvalue = 0;
         private byte Session = 0;
-        private int total_turns = 0;//轮数
+    
         private int total_tagnum = 0;//标签数量
         private int CardNum = 0;
         private int total_time = 0;//总时间
@@ -242,7 +242,7 @@ namespace UHFReader288Demo
                                 tidlist.Add(mytid);
                             }
                             lxLedControl1.Text = epclist.Count.ToString();
-                            lxLedControl6.Text = tidlist.Count.ToString();
+                     
 
                         }
                     }
@@ -252,7 +252,7 @@ namespace UHFReader288Demo
                     }
                     else if (rb_tid.Checked)
                     {
-                        lxLedControl6.Text = dt.Rows.Count.ToString();
+                      
                     }
                     lxLedControl5.Text = dt.Rows.Count.ToString();
                    
@@ -291,7 +291,7 @@ namespace UHFReader288Demo
                                     tidlist.Add(mytid);
                                 }
                                 lxLedControl1.Text = epclist.Count.ToString();
-                                lxLedControl6.Text = tidlist.Count.ToString();
+                               
 
                             }
                         }
@@ -301,7 +301,7 @@ namespace UHFReader288Demo
                         }
                         else if (rb_tid.Checked)
                         {
-                            lxLedControl6.Text = dt.Rows.Count.ToString();
+                            
                         }
 
                         lxLedControl5.Text = (System.Environment.TickCount - total_time).ToString();
@@ -450,8 +450,7 @@ namespace UHFReader288Demo
                         tidlist.Add(sTID);
                     }
                     lxLedControl1.Text = epclist.Count.ToString();
-                    lxLedControl6.Text = tidlist.Count.ToString();
-
+               
                 }
                 index++;
                 string RSSI = tagInfo.Substring(index);
@@ -545,9 +544,7 @@ namespace UHFReader288Demo
                 index++;
                 string cmdTime = str.Substring(index);
 
-                lxLedControl2.Text = tagRate;
-                lxLedControl3.Text = cmdTime;
-                lxLedControl4.Text = tagNum;
+ 
             }
             else if (m.Msg == WM_SENDSTATU)
             {
@@ -755,9 +752,6 @@ namespace UHFReader288Demo
         {
             ////应答模式下
             lxLedControl1.Text = "0";
-            lxLedControl2.Text = "0";
-            lxLedControl3.Text = "0";
-            lxLedControl4.Text = "0";
             lxLedControl5.Text = "0";
             dataGridView1.DataSource = null;
             text_RDVersion.Text = "";
@@ -1129,11 +1123,7 @@ namespace UHFReader288Demo
             if (tabControl2.SelectedTab == tabPage_answer)
             {
                 lxLedControl1.Text = "0";
-                lxLedControl2.Text = "0";
-                lxLedControl3.Text = "0";
-                lxLedControl4.Text = "0";
                 lxLedControl5.Text = "0";
-                lxLedControl6.Text = "0";
                 epclist.Clear();
                 tidlist.Clear();
                 dataGridView1.DataSource = null;
@@ -1182,11 +1172,7 @@ namespace UHFReader288Demo
                     Psd = HexStringToByteArray(text_readpsd.Text);
                 }
                 lxLedControl1.Text = "0";
-                lxLedControl2.Text = "0";
-                lxLedControl3.Text = "0";
-                lxLedControl4.Text = "0";
                 lxLedControl5.Text = "0";
-                lxLedControl6.Text = "0";
                 epclist.Clear();
                 tidlist.Clear();
                 dataGridView1.DataSource = null;
@@ -1219,7 +1205,7 @@ namespace UHFReader288Demo
                     tidLen = Convert.ToByte(text_readLen.Text, 16);
                 }
 
-                total_turns = 0;
+                
                 total_tagnum = 0;
                 targettimes = Convert.ToInt32(text_target.Text);
                 total_time = System.Environment.TickCount;
@@ -1275,12 +1261,12 @@ namespace UHFReader288Demo
             byte Ant = 0;
             int TagNum = 0;
             int Totallen = 0;
-            int EPClen, m;
+           
             byte[] EPC = new byte[50000];
-            int CardIndex;
-            string temps, temp;
-            temp = "";
-            string sEPC;
+           
+           
+            
+           
             byte MaskMem = 0;
             byte[] MaskAdr = new byte[2];
             byte MaskLen = 0;
@@ -1352,12 +1338,12 @@ namespace UHFReader288Demo
             byte Ant = 0;
             int TagNum = 0;
             int Totallen = 0;
-            int EPClen, m;
+            
             byte[] EPC = new byte[50000];
-            int CardIndex;
-            string temps, temp;
-            temp = "";
-            string sEPC;
+          
+           
+          
+            
             byte MaskMem = 0;
             byte[] MaskAdr = new byte[2];
             byte MaskLen = 0;
@@ -1836,7 +1822,7 @@ namespace UHFReader288Demo
                        CountStr = Convert.ToString(Convert.ToInt32(temp1.Substring(24, 4), 16), 10);
                        AntStr = Convert.ToString(Convert.ToInt32(temp1.Substring(28, 2), 16), 2).PadLeft(4, '0');
                        EPCStr = temp1.Substring(30, temp1.Length - 34);
-                       bool isonlistview = false;
+                       
                    } 
                }
                catch (System.Exception ex)
@@ -3296,7 +3282,7 @@ namespace UHFReader288Demo
         {
             try
             {
-                SeriaATflag = false;
+               
                 byte timeout = 0;
                 byte cmdlen = 0;
                 byte[] data = new byte[100];
@@ -3323,7 +3309,7 @@ namespace UHFReader288Demo
                     if ((recvs.IndexOf("ERROR") > 0) || (recvLen == 0))
                     {
                         MessageBox.Show("Get failed!", "Information");
-                        SeriaATflag = true;
+                      
                         return;
                     }
                     int m = 0;
@@ -3424,7 +3410,7 @@ namespace UHFReader288Demo
         {
             try
             {
-                SeriaATflag = false;
+               
                 byte timeout = 0;
                 byte cmdlen = 0;
                 byte[] data = new byte[100];
@@ -3451,7 +3437,7 @@ namespace UHFReader288Demo
                     if ((recvs.IndexOf("ERROR") > 0) || (recvLen == 0))
                     {
                         MessageBox.Show("Get failed!", "information");
-                        SeriaATflag = true;
+                      
                         return;
                     }
                     int m = 0;
@@ -3558,7 +3544,7 @@ namespace UHFReader288Demo
         {
             try
             {
-                SeriaATflag = false;
+                
                 byte timeout = 0;
                 byte cmdlen = 0;
                 byte[] data = new byte[100];
@@ -3585,7 +3571,7 @@ namespace UHFReader288Demo
                     if ((recvs.IndexOf("ERROR") > 0) || (recvLen == 0))
                     {
                         MessageBox.Show("Get failed!", "information");
-                        SeriaATflag = true;
+                       
                         return;
                     }
                     int m = 0;
@@ -3640,7 +3626,7 @@ namespace UHFReader288Demo
                     if ((recvs.IndexOf("ERROR") > 0) || (recvLen == 0))
                     {
                         MessageBox.Show("Get failed!", "information");
-                        SeriaATflag = true;
+                     
                         return;
                     }
                     int m = 0;
@@ -3810,11 +3796,11 @@ namespace UHFReader288Demo
         private void btGotoAT_Click(object sender, EventArgs e)
         {
             byte ATMode = 1;
-            SeriaATflag = false;
+           
             fCmdRet = RWDev.ChangeATMode(ref fComAdr, ATMode, frmcomportindex);
             if (fCmdRet != 0)
             {
-                SeriaATflag = true;
+                
                 string strLog = "Enter AT mode failed: " + GetReturnCodeDesc(fCmdRet);
                 WriteLog(lrtxtLog, strLog, 1);
             }
@@ -3993,8 +3979,7 @@ namespace UHFReader288Demo
                 listenThread.Abort();
         }
 
-        Socket m_client;
-        Thread clientThread = null;//接收数据线程
+   
 
 
 
@@ -4074,7 +4059,7 @@ namespace UHFReader288Demo
             //lxLed_Btoltag.Text = "0";
             //lxLed_Btoltime.Text = "0";
             //lxLed_cmdTime.Text = "0";
-            string temp = "";
+          
             fCmdRet = RWDev.ReadBuffer_G2(ref fComAdr, ref Totallen, ref CardNum, pEPCList, frmcomportindex);
             if (fCmdRet == 1)
             {
@@ -4407,8 +4392,6 @@ namespace UHFReader288Demo
             byte[] ScanModeData = new byte[40960];
             int nLen, NumLen;
             string temp1 = "";
-            string binarystr1 = "";
-            string binarystr2 = "";
             string RSSI = "";
             string AntStr = "";
             string lenstr = "";
@@ -4502,7 +4485,7 @@ namespace UHFReader288Demo
             WritePower = (byte)(com_wpower.SelectedIndex);
             if(rb_wp1.Checked)
             {
-                WritePower=WritePower;
+                WritePower=0;
             }
             else
             {

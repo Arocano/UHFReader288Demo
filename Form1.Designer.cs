@@ -279,8 +279,6 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage_answer = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lxLedControl6 = new LxControl.LxLedControl();
-            this.label119 = new System.Windows.Forms.Label();
             this.gbp_MixRead = new System.Windows.Forms.GroupBox();
             this.text_readpsd = new System.Windows.Forms.TextBox();
             this.label118 = new System.Windows.Forms.Label();
@@ -292,12 +290,6 @@
             this.label114 = new System.Windows.Forms.Label();
             this.lxLedControl5 = new LxControl.LxLedControl();
             this.label9 = new System.Windows.Forms.Label();
-            this.lxLedControl4 = new LxControl.LxLedControl();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lxLedControl3 = new LxControl.LxLedControl();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lxLedControl2 = new LxControl.LxLedControl();
-            this.label6 = new System.Windows.Forms.Label();
             this.lxLedControl1 = new LxControl.LxLedControl();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -460,12 +452,8 @@
             this.tabControl2.SuspendLayout();
             this.tabPage_answer.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl6)).BeginInit();
             this.gbp_MixRead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl1)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -3344,17 +3332,9 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lxLedControl6);
-            this.panel1.Controls.Add(this.label119);
             this.panel1.Controls.Add(this.gbp_MixRead);
             this.panel1.Controls.Add(this.lxLedControl5);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.lxLedControl4);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.lxLedControl3);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.lxLedControl2);
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.lxLedControl1);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.groupBox5);
@@ -3366,37 +3346,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1066, 574);
             this.panel1.TabIndex = 0;
-            // 
-            // lxLedControl6
-            // 
-            this.lxLedControl6.BackColor = System.Drawing.Color.Transparent;
-            this.lxLedControl6.BackColor_1 = System.Drawing.Color.Transparent;
-            this.lxLedControl6.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.lxLedControl6.BevelRate = 0.5F;
-            this.lxLedControl6.BorderColor = System.Drawing.Color.Lavender;
-            this.lxLedControl6.BorderWidth = 3;
-            this.lxLedControl6.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.lxLedControl6.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.lxLedControl6.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lxLedControl6.HighlightOpaque = ((byte)(50));
-            this.lxLedControl6.Location = new System.Drawing.Point(712, 247);
-            this.lxLedControl6.Name = "lxLedControl6";
-            this.lxLedControl6.RoundCorner = true;
-            this.lxLedControl6.ShowHighlight = true;
-            this.lxLedControl6.Size = new System.Drawing.Size(313, 92);
-            this.lxLedControl6.TabIndex = 31;
-            this.lxLedControl6.Text = "0";
-            this.lxLedControl6.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.lxLedControl6.TotalCharCount = 7;
-            // 
-            // label119
-            // 
-            this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(709, 226);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(68, 13);
-            this.label119.TabIndex = 30;
-            this.label119.Text = "TID Number:";
             // 
             // gbp_MixRead
             // 
@@ -3508,7 +3457,7 @@
             this.lxLedControl5.FocusedBorderColor = System.Drawing.Color.LightCoral;
             this.lxLedControl5.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lxLedControl5.HighlightOpaque = ((byte)(50));
-            this.lxLedControl5.Location = new System.Drawing.Point(886, 486);
+            this.lxLedControl5.Location = new System.Drawing.Point(712, 247);
             this.lxLedControl5.Name = "lxLedControl5";
             this.lxLedControl5.RoundCorner = true;
             this.lxLedControl5.ShowHighlight = true;
@@ -3522,107 +3471,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label9.Location = new System.Drawing.Point(884, 465);
+            this.label9.Location = new System.Drawing.Point(710, 231);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(98, 13);
             this.label9.TabIndex = 27;
             this.label9.Text = "Total-cmd-time(ms):";
-            // 
-            // lxLedControl4
-            // 
-            this.lxLedControl4.BackColor = System.Drawing.Color.Transparent;
-            this.lxLedControl4.BackColor_1 = System.Drawing.Color.Transparent;
-            this.lxLedControl4.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.lxLedControl4.BevelRate = 0.5F;
-            this.lxLedControl4.BorderColor = System.Drawing.Color.Lavender;
-            this.lxLedControl4.BorderWidth = 3;
-            this.lxLedControl4.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.lxLedControl4.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.lxLedControl4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lxLedControl4.HighlightOpaque = ((byte)(50));
-            this.lxLedControl4.Location = new System.Drawing.Point(711, 485);
-            this.lxLedControl4.Name = "lxLedControl4";
-            this.lxLedControl4.RoundCorner = true;
-            this.lxLedControl4.ShowHighlight = true;
-            this.lxLedControl4.Size = new System.Drawing.Size(154, 44);
-            this.lxLedControl4.TabIndex = 26;
-            this.lxLedControl4.Text = "0";
-            this.lxLedControl4.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.lxLedControl4.TotalCharCount = 7;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label8.Location = new System.Drawing.Point(709, 465);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 13);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "Total tag number:";
-            // 
-            // lxLedControl3
-            // 
-            this.lxLedControl3.BackColor = System.Drawing.Color.Transparent;
-            this.lxLedControl3.BackColor_1 = System.Drawing.Color.Transparent;
-            this.lxLedControl3.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.lxLedControl3.BevelRate = 0.5F;
-            this.lxLedControl3.BorderColor = System.Drawing.Color.Lavender;
-            this.lxLedControl3.BorderWidth = 3;
-            this.lxLedControl3.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.lxLedControl3.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.lxLedControl3.ForeColor = System.Drawing.Color.Purple;
-            this.lxLedControl3.HighlightOpaque = ((byte)(50));
-            this.lxLedControl3.Location = new System.Drawing.Point(886, 398);
-            this.lxLedControl3.Name = "lxLedControl3";
-            this.lxLedControl3.RoundCorner = true;
-            this.lxLedControl3.ShowHighlight = true;
-            this.lxLedControl3.Size = new System.Drawing.Size(154, 31);
-            this.lxLedControl3.TabIndex = 24;
-            this.lxLedControl3.Text = "0";
-            this.lxLedControl3.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.lxLedControl3.TotalCharCount = 10;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label7.Location = new System.Drawing.Point(884, 372);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 13);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "cmd time(ms):";
-            // 
-            // lxLedControl2
-            // 
-            this.lxLedControl2.BackColor = System.Drawing.Color.Transparent;
-            this.lxLedControl2.BackColor_1 = System.Drawing.Color.Transparent;
-            this.lxLedControl2.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.lxLedControl2.BevelRate = 0.5F;
-            this.lxLedControl2.BorderColor = System.Drawing.Color.Lavender;
-            this.lxLedControl2.BorderWidth = 3;
-            this.lxLedControl2.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.lxLedControl2.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.lxLedControl2.ForeColor = System.Drawing.Color.Purple;
-            this.lxLedControl2.HighlightOpaque = ((byte)(50));
-            this.lxLedControl2.Location = new System.Drawing.Point(711, 398);
-            this.lxLedControl2.Name = "lxLedControl2";
-            this.lxLedControl2.RoundCorner = true;
-            this.lxLedControl2.ShowHighlight = true;
-            this.lxLedControl2.Size = new System.Drawing.Size(154, 31);
-            this.lxLedControl2.TabIndex = 22;
-            this.lxLedControl2.Text = "0";
-            this.lxLedControl2.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.lxLedControl2.TotalCharCount = 10;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label6.Location = new System.Drawing.Point(709, 372);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Speed:";
             // 
             // lxLedControl1
             // 
@@ -3640,7 +3493,7 @@
             this.lxLedControl1.Name = "lxLedControl1";
             this.lxLedControl1.RoundCorner = true;
             this.lxLedControl1.ShowHighlight = true;
-            this.lxLedControl1.Size = new System.Drawing.Size(313, 92);
+            this.lxLedControl1.Size = new System.Drawing.Size(328, 92);
             this.lxLedControl1.TabIndex = 20;
             this.lxLedControl1.Text = "0";
             this.lxLedControl1.TextAlignment = LxControl.LxLedControl.Alignment.Right;
@@ -4933,13 +4786,9 @@
             this.tabPage_answer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl6)).EndInit();
             this.gbp_MixRead.ResumeLayout(false);
             this.gbp_MixRead.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lxLedControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl1)).EndInit();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -5009,12 +4858,6 @@
         private System.Windows.Forms.Panel panel1;
         private LxControl.LxLedControl lxLedControl5;
         private System.Windows.Forms.Label label9;
-        private LxControl.LxLedControl lxLedControl4;
-        private System.Windows.Forms.Label label8;
-        private LxControl.LxLedControl lxLedControl3;
-        private System.Windows.Forms.Label label7;
-        private LxControl.LxLedControl lxLedControl2;
-        private System.Windows.Forms.Label label6;
         private LxControl.LxLedControl lxLedControl1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox5;
@@ -5297,8 +5140,6 @@
         private System.Windows.Forms.TextBox text_readadr;
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.RadioButton rb_fastid;
-        private LxControl.LxLedControl lxLedControl6;
-        private System.Windows.Forms.Label label119;
         private System.Windows.Forms.GroupBox gbp_DRM;
         private System.Windows.Forms.RadioButton DRM_CLOSE;
         private System.Windows.Forms.RadioButton DRM_OPEN;
