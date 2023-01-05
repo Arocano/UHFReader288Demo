@@ -1250,6 +1250,7 @@ namespace UHFReader288Demo
             else
             {
                 toStopThread = true;
+                button2.Enabled = false;
                 btIventoryG2.Enabled = false;
                 btIventoryG2.BackColor = Color.Transparent;
                 btIventoryG2.Text = "Stoping";
@@ -1485,6 +1486,7 @@ namespace UHFReader288Demo
                 rb_fastid.Enabled = true;
                 fIsInventoryScan = false;
                 btIventoryG2.Enabled = true;
+                button2.Enabled = true;
             });
             
         }
@@ -1847,6 +1849,7 @@ namespace UHFReader288Demo
             if (fIsInventoryScan)
             {
                 toStopThread = true;
+                button2.Enabled = false;
                 btIventoryG2.Enabled = false;
                 btIventoryG2.BackColor = Color.Transparent;
                 btIventoryG2.Text = "Start";
@@ -4728,6 +4731,36 @@ namespace UHFReader288Demo
             ComboBox_dminfre.SelectedIndex = 0;
             cmbReturnLossFreq.SelectedIndex = 26;
         }
+        private void ExportCareer(DataGridView dataCareer)
+        {
+            Microsoft.Office.Interop.Excel.Application exportExcel = new Microsoft.Office.Interop.Excel.Application();
+            exportExcel.Application.Workbooks.Add(true);
+            int indexColumn = 0;
 
+            foreach(DataGridViewColumn column in dataCareer.Columns)
+            {
+                indexColumn++;
+                exportExcel.Cells[1, indexColumn] = column.HeaderText;
+            }
+
+            int indexRow = 0;
+            foreach (DataGridViewRow row in dataCareer.Rows) 
+            {
+                indexRow++;
+                indexColumn = 0;
+                foreach(DataGridViewColumn column in dataCareer.Columns)
+                {
+                    indexColumn++;
+                    exportExcel.Cells[indexRow + 1, indexColumn]=row.Cells[column.Name].Value;
+                }
+            }
+            exportExcel.Visible = true;
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ExportCareer(dataGridView1);
+        }
     }
+
 }

@@ -279,6 +279,7 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage_answer = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.gbp_MixRead = new System.Windows.Forms.GroupBox();
             this.text_readpsd = new System.Windows.Forms.TextBox();
             this.label118 = new System.Windows.Forms.Label();
@@ -3332,6 +3333,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.gbp_MixRead);
             this.panel1.Controls.Add(this.lxLedControl5);
             this.panel1.Controls.Add(this.label9);
@@ -3346,6 +3348,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1066, 574);
             this.panel1.TabIndex = 0;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.button2.Location = new System.Drawing.Point(713, 330);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(109, 43);
+            this.button2.TabIndex = 30;
+            this.button2.Text = "Exportar";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // gbp_MixRead
             // 
@@ -5194,6 +5209,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button button2;
     }
 }
 
