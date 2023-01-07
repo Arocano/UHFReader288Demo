@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
-using System.Resources;
-using System.Reflection;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
 using UHF;
-using System.IO;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.Data.OleDb;
+
 namespace UHFReader288Demo
 {
+
     public partial class Form1 : Form
     {
+        
+        //Generar Cronometro
+        Stopwatch oSW = new Stopwatch();
         [DllImport("User32.dll", EntryPoint = "PostMessage")]
         private static extern int PostMessage(
         IntPtr hWnd, // handle to destination window 
@@ -124,9 +125,10 @@ namespace UHFReader288Demo
                 string errMsg = ErrorHandling.HandleError(eCode);
                 throw new Exception(errMsg);
             }
+           
             elegateRFIDCallBack = new RFIDCallBack(GetUid);
         }
-
+  
         string epcandtid = "";//标记整合数据
         int lastnum = 0;
         public void GetUid(IntPtr p, Int32 nEvt)
@@ -976,6 +978,8 @@ namespace UHFReader288Demo
             com_retrytimes.SelectedIndex = 3;
             com_MixMem.SelectedIndex = 2;
             cbbAnt.SelectedIndex = 0;
+
+
         }
 
         private void btConnect232_Click(object sender, EventArgs e)
@@ -4760,6 +4764,72 @@ namespace UHFReader288Demo
         private void button2_Click_1(object sender, EventArgs e)
         {
             ExportCareer(dataGridView1);
+        }
+
+        
+
+        private void btnStartCr_Click(object sender, EventArgs e)
+        {
+            oSW.Start();
+            timer1.Enabled = true;
+            
+        }
+   
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            TimeSpan ts = new TimeSpan(0, 0, 0, 0, (int)oSW.ElapsedMilliseconds);
+
+            txtHoras.Text = ts.Hours.ToString().Length < 2 ? "0" + ts.Hours.ToString() : ts.Hours.ToString();
+            txtMinutos.Text = ts.Minutes.ToString().Length < 2 ? "0" + ts.Minutes.ToString() : ts.Minutes.ToString();
+            txtSegundos.Text = ts.Seconds.ToString().Length < 2 ? "0" + ts.Seconds.ToString() : ts.Seconds.ToString();
+            txtMilisegundos.Text = ts.Milliseconds.ToString();
+
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            oSW.Reset();
+            txtHoras.Text = "00";
+            txtMinutos.Text = "00";
+            txtSegundos.Text = "00";
+            txtMilisegundos.Text = "00";
+            timer1.Enabled = false;
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            oSW.Stop();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            textBox2.Text=txtHoras.Text;
+            textBox3.Text = txtMinutos.Text;
+            textBox4.Text = txtSegundos.Text ;
+            textBox5.Text = txtMilisegundos.Text;
+        }
+
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            String conexion = "Provider = Microsoft.Jet.OleDb.4.0;Data Source =C:\\Users\\Alejo\\Desktop\\Backups\\Software-2\\demo\\c#\\Standard test demo\\UHFReader288Demo\\Categorias.xlsx;Extended Properties = \"Excel 8.0;HDR = Yes\"";
+            OleDbConnection connector = default(OleDbConnection);
+            connector = new OleDbConnection(conexion);
+            connector.Open();
+
+            OleDbCommand consulta = default(OleDbCommand);
+            consulta = new OleDbCommand("SELECT * from [Hoja1$]", connector);
+
+            OleDbDataAdapter adaptador = new OleDbDataAdapter();
+            adaptador.SelectCommand = consulta;
+
+            DataSet ds = new DataSet();
+
+            adaptador.Fill(ds);
+
+            dataGridView2.DataSource = ds.Tables[0];
+
+            connector.Close();
         }
     }
 

@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoPropertyClass.cs" />
+    <Compile Include="CategoriasViewModel.cs" />
     <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +121,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\DataSources\AutoPropertyClass.datasource" />
+    <None Include="Properties\DataSources\CategoriasViewModel.datasource" />
+    <None Include="Properties\DataSources\ConfigForm.datasource" />
+    <None Include="Properties\DataSources\DevControl.datasource" />
+    <None Include="Properties\DataSources\DevControl.tagErrorCode.datasource" />
+    <None Include="Properties\DataSources\DeviceClass.datasource" />
+    <None Include="Properties\DataSources\ErrorHandling.datasource" />
+    <None Include="Properties\DataSources\Form1.ctcplist.datasource" />
+    <None Include="Properties\DataSources\Form1.datasource" />
+    <None Include="Properties\DataSources\Log.datasource" />
+    <None Include="Properties\DataSources\LoginForm.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\PropertyParaMapClass.datasource" />
+    <None Include="Properties\DataSources\UHF.RFIDTag.datasource" />
+    <None Include="Properties\DataSources\UHF.RWDev.datasource" />
+    <None Include="Properties\DataSources\UHFReader288Demo.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\UHFReader288Demo.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
