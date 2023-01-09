@@ -12,6 +12,8 @@ using UHF;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Data.OleDb;
+using ClosedXML.Excel;
+using System.Linq;
 
 namespace UHFReader288Demo
 {
@@ -192,13 +194,13 @@ namespace UHFReader288Demo
             });
 
         }
+        string sEPC;
         protected override void DefWndProc(ref Message m)
         {
             if (m.Msg == WM_SENDTAG)
             {
 
-                string tagInfo = Marshal.PtrToStringAnsi(m.LParam);
-                string sEPC;
+                string tagInfo = Marshal.PtrToStringAnsi(m.LParam); 
                 string str_ant = tagInfo.Substring(0, 4);
                 tagInfo = tagInfo.Substring(5);
                 int index = tagInfo.IndexOf(',');
@@ -210,8 +212,39 @@ namespace UHFReader288Demo
                 string RSSI = tagInfo.Substring(index);
 
                 DataTable dt = dataGridView1.DataSource as DataTable;
+                //Aqui va todo
+                string epc = sEPC;
+                if (epc != "")
+                {
+                    string query = "EPC = '" + epc + "'";
+                    DataRow foundEpcs = dtCorr.Select(query).FirstOrDefault();
 
-                if (dt == null)
+                    if (foundEpcs["EPC"]!=null)
+                    {
+                        DataRow[] found = dtCarrera.Select(query);
+                        TimeSpan ts = oSW.Elapsed;
+                        if (found.Length < 1)
+                        {
+                            string epcs = (string)foundEpcs["EPC"];
+                            string nombre = (string)foundEpcs["Nombre"];
+
+                            DataRow newRow = dtCarrera.NewRow();
+                            newRow["EPC"] = epcs;
+                            newRow["Nombre"] = nombre;
+                            newRow["Salida"] = ts.ToString();
+                            dtCarrera.Rows.Add(newRow);
+                        }
+                        else
+                        {
+
+                            DataRow foundEpcs2 = dtCarrera.Select(query).FirstOrDefault();
+                            foundEpcs2["Salida"] = ts.ToString();
+                        }
+
+                    }
+                    dtCorredores.DataSource = dtCarrera.DefaultView;
+                  }
+                    if (dt == null)
                 {
                     dt = new DataTable();
                     dt.Columns.Add("Column1", Type.GetType("System.String"));
@@ -220,6 +253,7 @@ namespace UHFReader288Demo
                     dr["Column1"] = (dt.Rows.Count + 1).ToString();
                     dr["Column2"] = sEPC;
                     dt.Rows.Add(dr);
+                  
                     if (rb_fastid.Checked)
                     {
                         if ((epclen & 0x80) == 0)//只有EPC
@@ -232,6 +266,7 @@ namespace UHFReader288Demo
                         }
                         else//同时有EPC和TID
                         {
+
                             int len = epclen & 0x7F;
                             string myepc = sEPC.Substring(0, (len - 12) * 2);
                             string mytid = sEPC.Substring((len - 12) * 2, 24);
@@ -262,6 +297,9 @@ namespace UHFReader288Demo
                 else
                 {
                     DataRow[] dr;
+                    //Cargar datos aqui
+                    
+                    
                     dr = dt.Select("Column2='" + sEPC + "'");
                     if (dr.Length == 0)     // epc号不存在
                     {
@@ -582,6 +620,9 @@ namespace UHFReader288Demo
             }
             else
                 base.DefWndProc(ref m);
+
+  
+
         }
 
         private delegate void WriteLogUnSafe(CustomControl.LogRichTextBox logRichTxt, string strLog, int nType);
@@ -4772,7 +4813,106 @@ namespace UHFReader288Demo
         {
             oSW.Start();
             timer1.Enabled = true;
-            
+            DataColumnCollection columns = dtCarrera.Columns;
+            if (!columns.Contains("EPC") && !columns.Contains("Nombre"))
+            {
+                dtCarrera.Columns.Add("EPC");
+                dtCarrera.Columns.Add("Nombre");
+                dtCarrera.Columns.Add("Salida");
+            }
+            dtCorredores.DataSource = dtCarrera.DefaultView;
+
+            if ((text_readadr.Text.Length != 4) || (text_readLen.Text.Length != 2) || (text_readpsd.Text.Length != 8))
+            {
+                MessageBox.Show("Mix inventory parameter error!!!");
+                return;
+            }
+
+                if (rb_mix.Checked)
+                {
+                    ReadMem = (byte)com_MixMem.SelectedIndex;
+                    ReadAdr = HexStringToByteArray(text_readadr.Text);
+                    ReadLen = Convert.ToByte(text_readLen.Text, 16);
+                    Psd = HexStringToByteArray(text_readpsd.Text);
+                }
+                lxLedControl1.Text = "0";
+                lxLedControl5.Text = "0";
+                epclist.Clear();
+                tidlist.Clear();
+                dataGridView1.DataSource = null;
+                lrtxtLog.Clear();
+                AA_times = 0;
+                Scantime = Convert.ToByte(com_scantime.SelectedIndex);
+                if (checkBox_rate.Checked)
+                    Qvalue = Convert.ToByte(com_Q.SelectedIndex | 0x80);
+                else
+                    Qvalue = Convert.ToByte(com_Q.SelectedIndex);
+
+
+                Session = Convert.ToByte(com_S.SelectedIndex);
+                if (Session == 4)
+                    Session = 255;
+
+                if (rb_epc.Checked)
+                {
+                    TIDFlag = 0;
+                }
+                else if (rb_fastid.Checked)
+                {
+                    TIDFlag = 0;
+                    Qvalue = Convert.ToByte(com_Q.SelectedIndex | 0x20);
+                }
+                else if (rb_tid.Checked)
+                {
+                    TIDFlag = 1;
+                    tidAddr = (byte)(Convert.ToInt32(text_readadr.Text, 16) & 0x00FF);
+                    tidLen = Convert.ToByte(text_readLen.Text, 16);
+                }
+
+
+                total_tagnum = 0;
+                targettimes = Convert.ToInt32(text_target.Text);
+                total_time = System.Environment.TickCount;
+                fIsInventoryScan = false;
+                btIventoryG2.BackColor = Color.Indigo;
+                btIventoryG2.Text = "Stop";
+                Array.Clear(antlist, 0, 4);
+                if (check_ant1.Checked)
+                {
+                    antlist[0] = 1;
+                    InAnt = 0x80;
+                }
+                if (check_ant2.Checked)
+                {
+                    antlist[1] = 1;
+                    InAnt = 0x81;
+                }
+                if (check_ant3.Checked)
+                {
+                    antlist[2] = 1;
+                    InAnt = 0x82;
+                }
+                if (check_ant4.Checked)
+                {
+                    antlist[3] = 1;
+                    InAnt = 0x83;
+                }
+                Target = (byte)com_Target.SelectedIndex;
+                toStopThread = false;
+                if (fIsInventoryScan == false)
+                {
+                    mythread = new Thread(new ThreadStart(inventory));
+                    mythread.IsBackground = true;
+                    mythread.Start();
+                    timer_answer.Enabled = true;
+                }
+                rb_mix.Enabled = false;
+                rb_epc.Enabled = false;
+                rb_tid.Enabled = false;
+                rb_fastid.Enabled = false;
+
+
+
         }
    
 
@@ -4789,6 +4929,7 @@ namespace UHFReader288Demo
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            toStopThread = true;
             oSW.Reset();
             txtHoras.Text = "00";
             txtMinutos.Text = "00";
@@ -4802,35 +4943,81 @@ namespace UHFReader288Demo
             oSW.Stop();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            textBox2.Text=txtHoras.Text;
-            textBox3.Text = txtMinutos.Text;
-            textBox4.Text = txtSegundos.Text ;
-            textBox5.Text = txtMilisegundos.Text;
-        }
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            String conexion = "Provider = Microsoft.Jet.OleDb.4.0;Data Source =C:\\Users\\Alejo\\Desktop\\Backups\\Software-2\\demo\\c#\\Standard test demo\\UHFReader288Demo\\Categorias.xlsx;Extended Properties = \"Excel 8.0;HDR = Yes\"";
-            OleDbConnection connector = default(OleDbConnection);
-            connector = new OleDbConnection(conexion);
-            connector.Open();
-
-            OleDbCommand consulta = default(OleDbCommand);
-            consulta = new OleDbCommand("SELECT * from [Hoja1$]", connector);
-
-            OleDbDataAdapter adaptador = new OleDbDataAdapter();
-            adaptador.SelectCommand = consulta;
-
-            DataSet ds = new DataSet();
-
-            adaptador.Fill(ds);
-
-            dataGridView2.DataSource = ds.Tables[0];
-
-            connector.Close();
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "ExcelWorkbook|*.xlsx", Multiselect = false })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    DataTable dt = new DataTable();
+                    using (ClosedXML.Excel.XLWorkbook workbook = new XLWorkbook(ofd.FileName))
+                    {
+                        bool isFirstRow = true;
+                        var rows = workbook.Worksheet(1).RowsUsed();
+                        foreach (var row in rows)
+                        {
+                            if (isFirstRow)
+                            {
+                                foreach (IXLCell cell in row.Cells())
+                                    dt.Columns.Add(cell.Value.ToString());
+                                isFirstRow = false;
+                            }
+                            else
+                            {
+                                dt.Rows.Add();
+                                int i = 0;
+                                foreach (IXLCell cell in row.Cells())
+                                    dt.Rows[dt.Rows.Count - 1][i++] = cell.Value.ToString();
+                            }
+                        }
+                        Cursor.Current = Cursors.Default;
+                    }
+                }
+            }
         }
+        DataTable dtCorr = new DataTable();
+        DataTable dtCarrera = new DataTable();
+        DataTable dtFinalizados = new DataTable();
+        private void btnImportCorredores_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "ExcelWorkbook|*.xlsx", Multiselect = false })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    
+                    using (ClosedXML.Excel.XLWorkbook workbook = new XLWorkbook(ofd.FileName))
+                    {
+                        bool isFirstRow = true;
+                        var rows = workbook.Worksheet(1).RowsUsed();
+                        foreach (var row in rows)
+                        {
+                            
+                            if (isFirstRow)
+                            {
+                                foreach (IXLCell cell in row.Cells())
+                                    dtCorr.Columns.Add(cell.Value.ToString());
+                                isFirstRow = false;
+
+                            }
+                            else
+                            {
+                                dtCorr.Rows.Add();
+                                int i = 0;
+                                foreach (IXLCell cell in row.Cells())
+                                    dtCorr.Rows[dtCorr.Rows.Count - 1][i++] = cell.Value.ToString();
+                            }
+                        }
+                        Cursor.Current = Cursors.Default;
+                    }
+                }
+                
+            }
+        }
+
+
     }
 
 }
